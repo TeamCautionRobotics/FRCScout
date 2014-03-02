@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:ignore="HardcodedText"
+    tools:context=".ScoutDataEditor"
+    >
+    
+    <ScrollView
+        android:id="@+id/scrollViewScoutEditor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        tools:ignore="UselessParent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <requestFocus />
+
+                <EditText
+                    android:id="@+id/editTextScoutTeamNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="4"
+                    android:hint="Team"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/editTextScoutTeamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Nickname"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextScoutDriveType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Drive Type"
+                android:singleLine="true" />
+
+            <CheckBox
+                android:id="@+id/checkBoxScoutWorking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Working" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <CheckBox
+                    android:id="@+id/checkBoxScoutOffense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offense" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxScoutDefense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Defense" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <CheckBox
+                    android:id="@+id/checkBoxScoutTruss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Truss" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxScoutCatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Catch" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxScoutPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pass" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxScoutAutonomous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Autonomous" />
+
+            <ScrollView
+                android:id="@+id/scrollViewScoutEditorAuto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F0F0F0"
+                tools:ignore="NestedScrolling" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <CheckBox
+                            android:id="@+id/checkBoxScoutAutoHigh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="High" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxScoutAutoLow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Low" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxScoutDetectHot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hot" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxScoutAutoMobile"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Mob." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <CheckBox
+                            android:id="@+id/checkBoxScoutAutoMultiple"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Multi." />
+
+                        <EditText
+                            android:id="@+id/editTextScoutAutoPoints"
+                            android:layout_width="112dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="Auto Points"
+                            android:inputType="number" >
+                        </EditText>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <EditText
+                android:id="@+id/editTextScoutNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Notes"
+                android:ems="12"
+                android:inputType="textAutoCorrect" />
+            </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

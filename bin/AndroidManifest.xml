@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nedearb.takp.frcscout"
+    android:versionCode="1"
+    android:versionName="1.0" xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18"
+        tools:ignore="OldTargetApi"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="nedearb.takp.frcscout.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="nedearb.takp.frcscout.ListMenu"
+            android:label="List" >
+        </activity>
+        <activity
+            android:name="nedearb.takp.frcscout.ScoutDataEditor"
+            android:label="Scout Editor" >
+        </activity>
+        <activity
+            android:name="nedearb.takp.frcscout.MatchDataEditor"
+            android:label="Match Editor" >
+        </activity>
+    </application>
+
+</manifest>
