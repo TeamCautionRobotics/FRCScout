@@ -29,6 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.38"
-        android:text="Send data via Bluetooth" />
+        android:text="Compress and send" />
+
+    <Button
+        android:id="@+id/ToCSVButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.33"
+        android:text="Save as CSV" />
 
 </LinearLayout>

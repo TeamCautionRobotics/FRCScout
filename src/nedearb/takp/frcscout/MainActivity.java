@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Map.Entry;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +37,8 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 	
 	public static File folder;
 	private Builder requireSDCardDialog;
+	private Builder CSVSuccessDialog;
+	private Builder CSVFailureDialog;
 	public static MainActivity instance;
 
 	@Override
@@ -44,8 +48,12 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 		((Button)findViewById(R.id.ScoutingButton)).setOnClickListener(this);
 		((Button)findViewById(R.id.MatchesButton)).setOnClickListener(this);
 		((Button)findViewById(R.id.SendBluetoothZipButton)).setOnClickListener(this);
+		((Button)findViewById(R.id.ToCSVButton)).setOnClickListener(this);
 		
 		requireSDCardDialog = new AlertDialog.Builder(this).setTitle("SD Card Access Disabled").setMessage("You will be unable to save any files until you enable SD card access.").setCancelable(false).setPositiveButton("Okay", this);
+		
+		CSVSuccessDialog = new AlertDialog.Builder(this).setTitle("CSV Files Saved").setMessage("Successfully created CSV Files").setCancelable(false).setPositiveButton("Okay", this);
+		CSVFailureDialog = new AlertDialog.Builder(this).setTitle("CSV Files Save Failed").setMessage("Failed to create CSV Files").setCancelable(false).setPositiveButton("Okay", this);
 		
 		
 		
@@ -175,6 +183,88 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 			    }
 			    
 			}
+		}
+		
+		if(v.getId()==R.id.ToCSVButton){
+			Log.d("onClick", "To CSV");
+
+			try {
+				{
+					PrintWriter pw = new PrintWriter(new FileOutputStream(new File(folder, "scoutData.csv")));
+					ScoutData dummy = new ScoutData();
+					boolean first = true;
+					
+					for(Entry<String, Value> a : dummy.values.entrySet()){
+						if(first){
+							first = false;
+						}else{
+							pw.print(",");
+						}
+						pw.print(a.getValue().name);
+					}
+
+					pw.println();
+					
+					for(Entry<String, ScoutData> e : scoutMap.entrySet()){
+						ScoutData d = e.getValue();
+	
+						first = true;
+						for(Entry<String, Value> a : d.values.entrySet()){
+							if(first){
+								first = false;
+							}else{
+								pw.print(",");
+							}
+							pw.print(a.getValue().toString());
+						}
+						pw.println();
+						
+					}
+					
+					pw.flush();
+					pw.close();
+				}
+				{
+					PrintWriter pw = new PrintWriter(new FileOutputStream(new File(folder, "matchData.csv")));
+					MatchData dummy = new MatchData();
+					boolean first = true;
+					
+					for(Entry<String, Value> a : dummy.values.entrySet()){
+						if(first){
+							first = false;
+						}else{
+							pw.print(",");
+						}
+						pw.print(a.getValue().name);
+					}
+
+					pw.println();
+					
+					for(Entry<String, MatchData> e : matchMap.entrySet()){
+						MatchData d = e.getValue();
+	
+						for(Entry<String, Value> a : d.values.entrySet()){
+							if(first){
+								first = false;
+							}else{
+								pw.print(",");
+							}
+							pw.print(a.getValue().toString());
+						}
+						pw.println();
+						
+					}
+					
+					pw.flush();
+					pw.close();
+					
+					CSVSuccessDialog.show();
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				CSVFailureDialog.show();
+			}
+			
 		}
 	}
 
