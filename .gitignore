@@ -1,2 +1,9 @@
+bin/*
 
-bin/
+.settings/org.eclipse.jdt.core.prefs
+
+bin/FRCScout.apk
+
+bin/classes.dex
+
+bin/classes.dex
