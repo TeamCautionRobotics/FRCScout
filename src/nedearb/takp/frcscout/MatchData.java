@@ -28,6 +28,7 @@ public class MatchData extends DataSet {
 		addValue("win", new ValueBool(R.id.checkBoxMatchWin));
 		addValue("matchPoints", new ValueInt(R.id.editTextMatchPoints));
 		addValue("penalties", new ValueInt(R.id.editTextMatchPenalties));
+		addValue("m2m", new ValueBool(R.id.checkBoxMatchM2M));
 		addValue("notes", new ValueString(R.id.editTextMatchNotes));
 	}
 

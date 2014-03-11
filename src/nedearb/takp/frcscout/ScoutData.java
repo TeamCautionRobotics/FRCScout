@@ -22,6 +22,7 @@ public class ScoutData extends DataSet {
 		addValue("teleTruss", new ValueBool(R.id.checkBoxScoutTruss));
 		addValue("teleCatch", new ValueBool(R.id.checkBoxScoutCatch));
 		addValue("telePass", new ValueBool(R.id.checkBoxScoutPass));
+		addValue("telem2m", new ValueBool(R.id.checkBoxScoutM2M));
 		addValue("notes", new ValueString(R.id.editTextScoutNotes));
 	}
 	

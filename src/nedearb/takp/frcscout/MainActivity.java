@@ -155,36 +155,7 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 			startActivity(i);
 		}
 		
-		if(v.getId()==R.id.SendBluetoothZipButton){
-			Log.d("onClick", "Send Data via Bluetooth");
-			
-			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-			if (mBluetoothAdapter == null) {
-			    Log.d("onClick", "Bluetooth not supported.");
-			}else{
-			    Log.d("onClick", "Bluetooth is supported.");
-			    if (!mBluetoothAdapter.isEnabled()) {
-				    Log.d("onCreate", "Bluetooth is not enabled.");
-			        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-			    }
-			    if(mBluetoothAdapter.isEnabled()){
-				    Log.d("onClick", "Enabled bluetooth.");
 
-					//Compress File
-					new Compress(folder.listFiles(), folder+"/allData.zip").zip();
-					//Send File
-					File file = new File(folder, "allData.zip");
-					sendFile(file);
-					
-					
-			    }else{
-				    Log.d("onClick", "Failed to enable bluetooth.");
-			    }
-			    
-			}
-		}
-		
 		if(v.getId()==R.id.ToCSVButton){
 			Log.d("onClick", "To CSV");
 
@@ -242,6 +213,8 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 					
 					for(Entry<String, MatchData> e : matchMap.entrySet()){
 						MatchData d = e.getValue();
+						
+						first = true;
 	
 						for(Entry<String, Value> a : d.values.entrySet()){
 							if(first){
@@ -257,14 +230,48 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 					
 					pw.flush();
 					pw.close();
-					
-					CSVSuccessDialog.show();
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				CSVFailureDialog.show();
 			}
+		}
+		
+		if(v.getId()==R.id.SendBluetoothZipButton || v.getId()==R.id.ToCSVButton){
+			Log.d("onClick", "Send Data via Bluetooth");
 			
+			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			if (mBluetoothAdapter == null) {
+			    Log.d("onClick", "Bluetooth not supported.");
+			}else{
+			    Log.d("onClick", "Bluetooth is supported.");
+			    if (!mBluetoothAdapter.isEnabled()) {
+				    Log.d("onCreate", "Bluetooth is not enabled.");
+			        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+			    }
+			    if(mBluetoothAdapter.isEnabled()){
+				    Log.d("onClick", "Enabled bluetooth.");
+				    
+				    if(v.getId()==R.id.SendBluetoothZipButton){
+						//Compress File
+						new Compress(folder.listFiles(), folder+"/allData.zip").zip();
+						//Send File
+						File file = new File(folder, "allData.zip");
+						sendFile(file, "application/zip");
+				    }else{
+				    	//Compress File
+						new Compress(new File[]{new File(folder, "scoutData.csv"), new File(folder, "matchData.csv")}, folder+"/CSVs.zip").zip();
+						//Send File
+						File file = new File(folder, "CSVs.zip");
+						sendFile(file, "application/zip");
+				    }
+					
+					
+			    }else{
+				    Log.d("onClick", "Failed to enable bluetooth.");
+			    }
+			    
+			}
 		}
 	}
 
@@ -338,10 +345,10 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 		f.delete();
 	}
 
-	private void sendFile(File file) {
+	private void sendFile(File file, String type) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.setType("application/zip");
+        intent.setType(type);
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
         startActivity(intent);
 	}
