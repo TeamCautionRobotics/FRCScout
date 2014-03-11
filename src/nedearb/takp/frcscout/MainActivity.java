@@ -37,8 +37,6 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 	
 	public static File folder;
 	private Builder requireSDCardDialog;
-	private Builder CSVSuccessDialog;
-	private Builder CSVFailureDialog;
 	public static MainActivity instance;
 
 	@Override
@@ -51,9 +49,6 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 		((Button)findViewById(R.id.ToCSVButton)).setOnClickListener(this);
 		
 		requireSDCardDialog = new AlertDialog.Builder(this).setTitle("SD Card Access Disabled").setMessage("You will be unable to save any files until you enable SD card access.").setCancelable(false).setPositiveButton("Okay", this);
-		
-		CSVSuccessDialog = new AlertDialog.Builder(this).setTitle("CSV Files Saved").setMessage("Successfully created CSV Files").setCancelable(false).setPositiveButton("Okay", this);
-		CSVFailureDialog = new AlertDialog.Builder(this).setTitle("CSV Files Save Failed").setMessage("Failed to create CSV Files").setCancelable(false).setPositiveButton("Okay", this);
 		
 		
 		
@@ -75,42 +70,6 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 		}
 		
 		Log.d("Loaded Files? ", loadFiles()+"");
-		/*
-		ScoutData sd = new ScoutData("1492");
-		sd.autoDetectHot = false;
-		sd.autonomous = true;
-		sd.autoQty = 1;
-		sd.autoThrowHigh = true;
-		sd.autoThrowLow = true;
-		sd.defense = false;
-		sd.driveType = "mecanum";
-		sd.notes = "Go team caution!";
-		sd.offense = true;
-		sd.teamName = "Team Caution";
-		sd.working = true;
-		if(!scoutMap.containsKey(sd.getMapName())){
-			scoutMap.put(sd.getMapName(), sd);
-		}
-		Log.d("Saved File? ", saveFile(sd)+"");
-		
-		MatchData md = new MatchData("4", "1492");
-		md.assists = 1;
-		md.colorIsRed = false;
-		md.defense = false;
-		md.goals = 5;
-		md.matchPoints = 46;
-		md.notes = "Notes lalala";
-		md.offense = true;
-		md.penalties = 0;
-		md.truss = 0;
-		md.win = true;
-		if(!matchMap.containsKey(md.getMapName())){
-			matchMap.put(md.getMapName(), md);
-		}
-		Log.d("Saved File? ", saveFile(md)+"");
-		
-		Log.d("Loaded Files? ", loadFiles()+"");
-		*/
 	}
 
 	public boolean saveFile(DataSet f) {
@@ -305,6 +264,15 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 		file = file.split("\\.", 2)[0];
 		String[] split = file.split("_", 2);
 		
+		int num = -1;
+		
+		
+		try{
+			num = Integer.parseInt(split[0]);
+		}catch(Exception e){
+			
+		}
+		
 		if(split[0].equals("scout")){
 			try{
 				if(!MainActivity.scoutMap.containsKey(split[1])){
@@ -314,7 +282,7 @@ public class MainActivity extends Activity implements OnClickListener, android.c
 			}catch(Exception e){
 				
 			}
-		}else{
+		}else if(num!=-1){
 			try{
 				if(!MainActivity.matchMap.containsKey(file)){
 					MainActivity.matchMap.put(file, new MatchData());
